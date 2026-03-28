@@ -52,6 +52,26 @@ class SqlDb(object):
             if conn: 
                 conn.close()
 
+    def get_users(self):
+        conn = None
+        try:
+            conn = self._connect()
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT id, username, email FROM users"
+            )
+            rows = cursor.fetchall()
+            for row in rows:
+                print(row)
+            return rows
+        except sqlite3.Error as e:
+            print(f"Database error during user retrieval: {e}")
+        finally:
+            if cursor: 
+                cursor.close()
+            if conn: 
+                conn.close()
+
     def get_user_by_username(self, username):
         conn = None
         try:
@@ -59,7 +79,7 @@ class SqlDb(object):
             cursor = conn.cursor()
             cursor.execute(
                 "SELECT id, username, email FROM users WHERE username = ?",
-                (username,)
+                (username)
             )
             row = cursor.fetchone()
             if row:

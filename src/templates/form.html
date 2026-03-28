@@ -6,15 +6,34 @@
   </div>
 </div>
 <div class="container">
+  {% if users | length > 0 %}
   <div class="row">
+    <p>Hello users !!!</p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+        {% for u in users %}
+        <tr>
+            <th>{{u[1]}}</th>
+            <th>{{u[2]}}</th>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+  <hr>
+  {% endif %}
+  <div class="row">
+    <h3>Become a user</h3>
     <form action="/form.html" method="POST" class="box">
       <div class="col-auto">
-        <label name="exampleFormControlInput1" class="form-label">Email address</label>
-        <input name="email" type="email" class="form-control" id="exampleFormControlInput1" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" placeholder="name@example.com">
+        <label for="name" class="form-label">Name</label>
+        <input id="name" name="name" class="form-control">
       </div>
       <div class="col-auto">
-        <label for="exampleFormControlTextarea1" class="form-label">Example text area</label>
-        <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <label for="email" class="form-label">Email address</label>
+        <input id="email" name="email" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" placeholder="name@example.com">
       </div>
       <br/>
       <div class="col-auto">

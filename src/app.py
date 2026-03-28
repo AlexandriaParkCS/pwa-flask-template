@@ -68,12 +68,23 @@ def privacy():
 @app.route("/form.html", methods=["POST", "GET"])
 def form():
     if request.method == "POST":
+        # A POST request adds a new user
+        name = request.form["name"]
         email = request.form["email"]
-        text = request.form["text"]
-        print(f"<From(email={email}, text='{text}')>")
-        return render_template("/form.html")
-    else:
-        return render_template("/form.html")
+        print(f"<From(name={name}, email='{email}')>")
+        try:
+            sql_db.create_user(name, email)
+        except Exception as ex:
+            print(f"ERROR: {ex}")
+            return f"ERROR: {ex}"
+
+    # Shows all users and a form to add a new one
+    try:
+        users = sql_db.get_users()
+        return render_template("/form.html", users=users)
+    except Exception as ex:
+        print(f"ERROR: {ex}")
+        return f"ERROR: {ex}"
 
 # Endpoint for logging CSP violations
 @app.route("/csp_report", methods=["POST"])
