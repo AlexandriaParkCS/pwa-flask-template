@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT UNIQUE NOT NULL);
 
 -- Add user
-INSERT INTO users (username, email) VALUES ('luke', 'may4bwithu', 'luke@starwars.com');
+INSERT INTO users (name, username, email) 
+    VALUES ('luke', 'luke@starwars.com');
 
 -- Get user by user name
 SELECT id, username, email FROM users WHERE username = 'luke';
